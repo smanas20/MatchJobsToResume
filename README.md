@@ -16,7 +16,7 @@ This project automates job searching by:
 
 1. **Clone the repo & create a virtual environment**
 ```bash
-git clone https://github.com/yourusername/jobmatcher.git
+git clone https://github.com/yourusername/MatchJobsToResume.git
 cd jobmatcher
 python3 -m venv venv
 source venv/bin/activate
