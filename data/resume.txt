@@ -1,0 +1,5 @@
+Senior Systems Engineer with experience in PLC programming (Beckhoff, Siemens), control systems, HMI (TwinCAT, WinForms), and SCADA dashboard development.
+Expert in industrial automation, servo drives, actuators, and safety protocols including EtherCAT and Ethernet/IP.
+Proficient in Python scripting and SQL databases for MES integration. Experience with statistical analysis (GRR, ANOVA) for process validation.
+Former Machine Learning Engineer with hands-on deployment of ML/DL models using TensorFlow, PyTorch, AWS, EC2, and S3.
+Built robot control systems, object detection pipelines, and AI-based planning modules. Strong background in automation and real-time systems.
