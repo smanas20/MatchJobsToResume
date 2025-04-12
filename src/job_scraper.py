@@ -1,46 +1,36 @@
+# jobmatcher/src/job_scraper.py
 import requests
-from bs4 import BeautifulSoup
-import time
 
-HEADERS = {
-    "User-Agent": "Mozilla/5.0"
-}
+def scrape_remoteok_jobs(query, max_results=50):
+    url = "https://remoteok.com/api"
+    headers = {"User-Agent": "Mozilla/5.0"}
 
-def scrape_indeed_jobs(query, location="United States", max_results=50):
-    query = query.replace(" ", "+")
-    location = location.replace(" ", "+")
+    try:
+        response = requests.get(url, headers=headers)
+        jobs_data = response.json()
+    except Exception as e:
+        print(f"Failed to fetch data from RemoteOK: {e}")
+        return []
+
     jobs = []
-    start = 0
+    query_lower = query.lower()
 
-    while len(jobs) < max_results:
-        url = f"https://www.indeed.com/jobs?q={query}&l={location}&start={start}"
-        response = requests.get(url, headers=HEADERS)
-        soup = BeautifulSoup(response.text, "html.parser")
-        cards = soup.find_all("div", class_="job_seen_beacon")
+    for job in jobs_data[1:]:  # Skip metadata row at index 0
+        position = job.get("position", "")
+        company = job.get("company", "")
+        description = job.get("description", "")
+        tags = " ".join(job.get("tags", []))
+        link = job.get("url", "")
 
-        if not cards:
-            break
-
-        for card in cards:
-            title_tag = card.find("h2", class_="jobTitle")
-            title = title_tag.text.strip() if title_tag else "N/A"
-            company_tag = card.find("span", class_="companyName")
-            company = company_tag.text.strip() if company_tag else "N/A"
-            summary_tag = card.find("div", class_="job-snippet")
-            summary = summary_tag.text.strip().replace("\n", " ") if summary_tag else "N/A"
-            link = "https://www.indeed.com" + title_tag.find("a")["href"] if title_tag and title_tag.find("a") else "N/A"
-
+        full_text = f"{position} {tags} {description}".lower()
+        if query_lower in full_text:
             jobs.append({
-                "title": title,
+                "title": position,
                 "company": company,
-                "description": summary,
+                "description": description,
                 "link": link
             })
-
             if len(jobs) >= max_results:
                 break
-
-        start += 10
-        time.sleep(1)
 
     return jobs

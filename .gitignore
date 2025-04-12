@@ -1,4 +1,17 @@
-venv/
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Environment and config
+.env
+credentials.json
+
+# Data outputs
 data/*.csv
