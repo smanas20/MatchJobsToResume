@@ -32,7 +32,7 @@ if __name__ == '__main__':
     resume_text = get_resume_embedding("data/resume.txt")
 
     # Choose job source here: 'remoteok', 'adzuna', 'wellfound', etc.
-    job_source = 'remoteok'
+    job_source = 'lever'
     scraper = get_scraper(job_source)
 
     print(f"Scraping jobs from {job_source.title()}...")
